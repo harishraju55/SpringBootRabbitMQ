@@ -26,8 +26,7 @@ public class ProductListeninigController {
 		
 		byte[] messageInBytes = message.getBody();
 		Product product = new ObjectMapper().readValue(new String(messageInBytes), Product.class);
-		System.out.println(product);
-		String url = "http://localhost:8090/save";
+		String url = "http://localhost:8090/v1/app/save";
 		restTemplate.postForLocation(url, product);
 	}
 	

@@ -16,7 +16,7 @@ import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping(value="/v1/app")
-@Api(value="stocksApp", description="This service is for crud operation for StockApp")
+@Api(value="RabbitMQ app1", description="This is for messaging operations for rabbitMQ")
 public class ProductsController {
 	
 	private static final String PROCESS_QUEUE = "tekgroupproducts";
@@ -30,9 +30,7 @@ public class ProductsController {
 	@RequestMapping(value="/product", method=RequestMethod.POST)
 	public void processProduct(@RequestBody Product product) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println(product);
 		String productString = mapper.writeValueAsString(product);
-		System.out.println(productString+"is here");
 		rabbitTemplate.convertAndSend(PROCESS_QUEUE, productString);
 
 
