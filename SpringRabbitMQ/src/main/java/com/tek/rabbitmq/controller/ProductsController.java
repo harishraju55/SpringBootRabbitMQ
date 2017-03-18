@@ -21,7 +21,8 @@ public class ProductsController {
 	
 	private static final String PROCESS_QUEUE = "tekgroupproducts";
 
-	
+	@Autowired
+	ObjectMapper mapper;
 	
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
@@ -29,7 +30,6 @@ public class ProductsController {
 
 	@RequestMapping(value="/product", method=RequestMethod.POST)
 	public void processProduct(@RequestBody Product product) throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
 		String productString = mapper.writeValueAsString(product);
 		rabbitTemplate.convertAndSend(PROCESS_QUEUE, productString);
 
