@@ -30,6 +30,7 @@ public class ProductsController {
 
 	@RequestMapping(value="/product", method=RequestMethod.POST)
 	public void processProduct(@RequestBody Product product) throws JsonProcessingException {
+		System.out.println("Jenkins test");
 		String productString = mapper.writeValueAsString(product);
 		rabbitTemplate.convertAndSend(PROCESS_QUEUE, productString);
 
